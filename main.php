@@ -3,9 +3,9 @@ error_reporting (E_ALL);
 include 'Config/load.php';
 
 //Sort example:
-$array = array(4, 2, 1, 3, 7, 2, 9, 5);
+$array = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
 echo ("\nBefore sort:\n");
-$sortInstance = Sort_Merge::getInstance();
+$sortInstance = Sort_BinaryTree::getInstance();
 print_r($array);
 $array = $sortInstance->sort($array);
 echo ("\nAfter sort:\n");
