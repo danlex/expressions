@@ -2,6 +2,21 @@
 error_reporting (E_ALL);
 include 'Config/load.php';
 
+
+
+//Sort example:
+$array = array(4, 2, 3);
+echo ("\nBefore sort:\n");
+$sortInstance = Sort_QuickSort::getInstance();
+$sortInstance->setDebug(true);
+print_r($array);
+$sortInstance->sort($array);
+echo ("\nAfter sort:\n");
+print_r($array);
+
+die();
+
+
 //Sort example:
 $array = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
 echo ("\nBefore sort:\n");
