@@ -72,9 +72,10 @@ class Sort_QuickSort
     * 4. concatenate left and right sub arrays
     * @param Array $a
     */
-    public function sort(Array &$a)
+    public function sort(Array $a)
     {
         $this->quickSortRec($a, 0, count($a) - 1);
+        return $a;
     }
 
     /*

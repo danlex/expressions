@@ -5,10 +5,9 @@ include 'Config/load.php';
 //Sort example:
 $array = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
 echo ("\nBefore sort:\n");
-$sortInstance = Sort_QuickSort::getInstance();
-$sortInstance->setDebug(true);
 print_r($array);
-$sortInstance->sort($array);
+$sortInstance = Sort_QuickSort::getInstance();
+$array = $sortInstance->sort($array);
 echo ("\nAfter sort:\n");
 print_r($array);
 
@@ -17,8 +16,8 @@ die();
 //Sort example:
 $array = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
 echo ("\nBefore sort:\n");
-$sortInstance = Sort_BinaryTree::getInstance();
 print_r($array);
+$sortInstance = Sort_BinaryTree::getInstance();
 $array = $sortInstance->sort($array);
 echo ("\nAfter sort:\n");
 print_r($array);
