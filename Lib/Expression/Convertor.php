@@ -8,114 +8,121 @@
  *
  * @category   : Math Algorithms
  * @package    : Expression
- * @subpackage : 
+ * @subpackage :
  * @copyright  : Copyright (C) 2012, Alexandru Dan
  * @author     : Alexandru Dan <dan_lex@yahoo.com>
  * @version    : $Id$
  */
- 
-class Expression_Convertor{
+
+class Expression_Convertor
+{
     private static $_convertor = NULL;
-    
-    private function __construct(){
-        
+
+    private function __construct()
+    {
     }
-    
+
     /**
      * Expression Convertor singleton
      *
      * @return Expression_Convertor
      */
-    public static function getInstance(){
-        if (is_null(self::$_convertor)){
+    public static function getInstance()
+    {
+        if (is_null(self::$_convertor)) {
             self::$_convertor = new Expression_Convertor();
         }
-        
+
         return self::$_convertor;
     }
-    
+
     /**
      * Verify character is operator
      * Operators are +, -, *, /
      *
-     * @param string $chr
+     * @param  string  $chr
      * @return boolean
      */
-    private function _isOperator ($chr){
+    private function _isOperator ($chr)
+    {
         return (0 + preg_match ('/^[\+\-\*\/]/', $chr) > 0);
     }
-    
+
     /**
      * Verify character is digit 0-9
      *
-     * @param string $chr
+     * @param  string  $chr
      * @return boolean
      */
-    private function _isDigit ($chr){
+    private function _isDigit ($chr)
+    {
         return (0 + preg_match ('/^[0-9]/', $chr) > 0);
     }
-    
+
     /**
      * Verify character is space, tab, end of line
      *
-     * @param string $chr
+     * @param  string  $chr
      * @return boolean
      */
-    private function _isSpace ($chr){
+    private function _isSpace ($chr)
+    {
         return (0 + preg_match ('/^[\s]/', $chr) > 0);
     }
-    
+
     /**
      * Calculate operator priority
      * Operators are +, -, *, /
      *
-     * @param string $chr
+     * @param  string $chr
      * @return number
      */
-    private function _priority($chr){
-	    $pri = 0;
-        if($chr === '*' || $chr === '/' || $chr === '%'){
+    private function _priority($chr)
+    {
+        $pri = 0;
+        if ($chr === '*' || $chr === '/' || $chr === '%') {
             $pri = 2;
         }
-        
-        if($chr === '+' || $chr === '-'){
+
+        if ($chr === '+' || $chr === '-') {
             $pri = 1;
         }
-        
+
         return $pri;
     }
-    
+
     /**
      * Convert expression in infix format to postfix format
      *
-     * @param string $strInfix
+     * @param  string $strInfix
      * @return string
      */
-    public function strInfixToStrPostfix($strInfix){
+    public function strInfixToStrPostfix($strInfix)
+    {
         $stack = array();
         $stackPostfix = array();
         $charInfix = NULL;
-        if (strlen($strInfix) === 0){
+        if (strlen($strInfix) === 0) {
             return '';
         }
-        
+
         $i = 0;
-        while ($i < strlen($strInfix)){
+        while ($i < strlen($strInfix)) {
             $charInfix = $strInfix[$i];
-            if ($this->_isSpace($charInfix)){
+            if ($this->_isSpace($charInfix)) {
                 $i++;
                 continue;
             }
-            
-            if ($this->_isDigit($charInfix)){
+
+            if ($this->_isDigit($charInfix)) {
                 $number = 0 + $charInfix;
-                while(true){
+                while (true) {
                     $i++;
-                    if (isset($strInfix[$i])){
-                        if($this->_isDigit($charInfix = $strInfix[$i])){
+                    if (isset($strInfix[$i])) {
+                        if ($this->_isDigit($charInfix = $strInfix[$i])) {
                             $number = 10 * $number + $charInfix;
                         } else {
-                            if (!$this->_isSpace($charInfix)){
+                            if (!$this->_isSpace($charInfix)) {
                                 break;
                             }
                         }
@@ -125,18 +132,18 @@ class Expression_Convertor{
                 }
                 array_push ($stackPostfix, $number);
             }
-            
-            if ($this->_isOperator($charInfix)){
-                if (empty($stack)){
+
+            if ($this->_isOperator($charInfix)) {
+                if (empty($stack)) {
                     array_push($stack, $charInfix);
                 } else {
                     $charTopStack = array_pop($stack);
-                    while ($this->_priority($charTopStack) >= $this->_priority($charInfix)){
+                    while ($this->_priority($charTopStack) >= $this->_priority($charInfix)) {
                         array_push ($stackPostfix, $charTopStack);
                         $charTopStack = array_pop($stack);
                     }
-                    
-                    if (!is_null($charTopStack)){
+
+                    if (!is_null($charTopStack)) {
                         array_push($stack, $charTopStack);
                     }
                     array_push($stack, $charInfix);
@@ -144,62 +151,63 @@ class Expression_Convertor{
                 $i++;
                 continue;
             }
-            
-            if ($charInfix === '('){
+
+            if ($charInfix === '(') {
                 array_push ($stack, $charInfix);
                 $i++;
                 continue;
             }
-        
-            if ($charInfix === ')'){
+
+            if ($charInfix === ')') {
                 $charInfix = array_pop($stack);
-                
+
                 $iterationsParantesis = 0;
-                while ($charInfix !== '('){
+                while ($charInfix !== '(') {
                     array_push ($stackPostfix, $charInfix);
                     $charInfix = array_pop($stack);
                 }
                 $i++;
             }
         }
-        
-        while (!empty($stack)){
+
+        while (!empty($stack)) {
             $charInfix = array_shift($stack);
             array_push ($stackPostfix, $charInfix);
         }
-        
+
         return implode (' ', $stackPostfix);
     }
-    
+
      /**
      * Convert expression in postfix string format to postfix stack format
      *
-     * @param string $strInfix
-     * @return array stack
+     * @param  string $strInfix
+     * @return array  stack
      */
-    public function strPostfixToStackPostfix($strPostfix){
+    public function strPostfixToStackPostfix($strPostfix)
+    {
         $stackPostfix = array();
         $charPostfix = NULL;
-        if (strlen($strPostfix) === 0){
+        if (strlen($strPostfix) === 0) {
             return '';
         }
-        
+
         $i = 0;
-        while ($i < strlen($strPostfix)){
+        while ($i < strlen($strPostfix)) {
             $charPostfix = $strPostfix[$i];
-            if ($this->_isSpace($charPostfix)){
+            if ($this->_isSpace($charPostfix)) {
                 $i++;
                 continue;
             }
-            
-            if ($this->_isDigit($charPostfix)){
+
+            if ($this->_isDigit($charPostfix)) {
                 $number = 0 + $charPostfix;
-                while(true){
+                while (true) {
                     $i++;
-                    if (isset($strPostfix[$i])){
-                        if($this->_isDigit($charPostfix = $strPostfix[$i])){
+                    if (isset($strPostfix[$i])) {
+                        if ($this->_isDigit($charPostfix = $strPostfix[$i])) {
                             $number = 10 * $number + $charPostfix;
-                            
+
                             break;
                         } else {
                             break;
@@ -208,38 +216,39 @@ class Expression_Convertor{
                         break;
                     }
                 }
-                array_push ($stackPostfix, $number);    
+                array_push ($stackPostfix, $number);
                 $i++;
                 continue;
             }
-            
-            if ($this->_isOperator($charPostfix)){
+
+            if ($this->_isOperator($charPostfix)) {
                 array_push($stackPostfix, $charPostfix);
                 $i++;
                 continue;
             }
-            
+
             throw new ExpressionException ('Unknown character #'.$charPostfix.'#');
         }
-        
+
         return $stackPostfix;
     }
-    
+
     /**
      * Convert expression in psotfix stack format to expression tree
      *
-     * @param string $stackPostfix
+     * @param  string          $stackPostfix
      * @return Expression_Tree
      */
-    public function stackPostfixToExpressionTree($stackPostfix){
+    public function stackPostfixToExpressionTree($stackPostfix)
+    {
         $result = NULL;
         $stackEvaluate = array();
-        while (!empty($stackPostfix)){  
+        while (!empty($stackPostfix)) {
             $element = array_shift($stackPostfix);
-            if ($this->_isOperator($element)){
+            if ($this->_isOperator($element)) {
                 $nodeOperand1 = array_pop($stackEvaluate);
                 $nodeOperand2 = array_pop($stackEvaluate);
-                
+
                 $node = new Expression_TreeNode();
                 $node->setOperator($element);
                 $node->setLeftNode($nodeOperand1);
@@ -251,51 +260,54 @@ class Expression_Convertor{
                 array_push($stackEvaluate, $node);
             }
         }
-        
+
         $expressionTree = new Expression_Tree();
-        if (!empty($stackEvaluate)){
+        if (!empty($stackEvaluate)) {
            $expressionTree->setRoot(array_pop($stackEvaluate));
         }
-        
+
         return $expressionTree;
     }
-    
+
     /**
      * Convert expression in infix string format to expression tree
      *
-     * @param string $strInfix
+     * @param  string $strInfix
      * @return tree
      */
-    public function strInfixToExpressionTree($strInfix){
+    public function strInfixToExpressionTree($strInfix)
+    {
         $strPostfix = $this->strInfixToStrPostfix($strInfix);
         $stackPostfix = $this->strPostfixToStackPostfix($strPostfix);
         $tree = $this->stackPostfixToExpressionTree($stackPostfix);
-        
+
         return $tree;
     }
-    
+
     /**
      * Convert expression tree to postfix string expression
      *
-     * @param Expression_Tree $tree
+     * @param  Expression_Tree $tree
      * @return int
      */
-    public function expressionTreeToStrPostfix (Expression_Tree $tree){
+    public function expressionTreeToStrPostfix (Expression_Tree $tree)
+    {
         return $this->_expressionTreeToStrPostfixDsr($tree->getRoot());
     }
-    
+
     /**
-     * Calculate postfix string expression 
+     * Calculate postfix string expression
      * The tree is covered going in the order right, left, root
      *
-     * @param Expression_TreeNode $node
+     * @param  Expression_TreeNode $node
      * @return string
      */
-    private function _expressionTreeToStrPostfixDsr (Expression_TreeNode $node){
-        if ($node !== NULL){
+    private function _expressionTreeToStrPostfixDsr (Expression_TreeNode $node)
+    {
+        if ($node !== NULL) {
             $nodeLeft = $node->getLeftNode();
             $nodeRight = $node->getRightNode();
-            if ($nodeLeft !== NULL && $nodeRight !== NULL){
+            if ($nodeLeft !== NULL && $nodeRight !== NULL) {
                 return $this->_expressionTreeToStrPostfixDsr($nodeRight).' '.$this->_expressionTreeToStrPostfixDsr($nodeLeft).' '.$node->toString();
             } else {
                 return  $node->getOperand();

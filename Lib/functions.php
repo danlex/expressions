@@ -10,7 +10,8 @@ if (!function_exists('_autoload')) {
     }
 }
 
-function print_p($var){
+function print_p($var)
+{
     print_r ($var);
     echo ("\n");
 }

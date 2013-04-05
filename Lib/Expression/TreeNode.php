@@ -8,64 +8,75 @@
  *
  * @category   : Math Algorithms
  * @package    : Expression
- * @subpackage : 
+ * @subpackage :
  * @copyright  : Copyright (C) 2012, Alexandru Dan
  * @author     : Alexandru Dan <dan_lex@yahoo.com>
  * @version    : $Id$
  */
- 
-class Expression_TreeNode{
+
+class Expression_TreeNode
+{
     private $_leftNode = NULL;
     private $_rightNode = NULL;
     private $_operand = NULL;
     private $_operator = NULL;
-    
-    public function __construct(){
-        
+
+    public function __construct()
+    {
     }
-    
-    public function setLeftNode(Expression_TreeNode $node = NULL){
+
+    public function setLeftNode(Expression_TreeNode $node = NULL)
+    {
         $this->_leftNode = $node; return $this;
     }
-    
-    public function getLeftNode(){
+
+    public function getLeftNode()
+    {
         return $this->_leftNode;
     }
-    
-    public function setRightNode(Expression_TreeNode $node = NULL){
+
+    public function setRightNode(Expression_TreeNode $node = NULL)
+    {
         $this->_rightNode = $node; return $this;
     }
-    
-    public function getRightNode(){
+
+    public function getRightNode()
+    {
         return $this->_rightNode;
     }
-    
-    public function setOperand($operand){
+
+    public function setOperand($operand)
+    {
         $this->_operand = $operand; return $this;
     }
-    
-    public function getOperand(){
+
+    public function getOperand()
+    {
         return $this->_operand;
     }
-    
-    public function setOperator($operator){
+
+    public function setOperator($operator)
+    {
         $this->_operator = $operator; return $this;
     }
-    
-    public function getOperator(){
+
+    public function getOperator()
+    {
         return $this->_operator;
     }
-    
-    public function toString(){
+
+    public function toString()
+    {
         $str = '';
         $operator = $this->getOperator();
-        if (!is_null($operator)){
+        if (!is_null($operator)) {
             $str .= $operator;
         }
         $operand = $this->getOperand();
-        if (!is_null($operand)){
+        if (!is_null($operand)) {
             $str .= $operand;
         }
+
         return $str;
     }
 }

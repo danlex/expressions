@@ -3,7 +3,7 @@
     strict="true"
     processIsolation="true"
     backupGlobals="true"
-    backupStaticAttributes="false" 
+    backupStaticAttributes="false"
     syntaxCheck="false"
     cacheTokens="true"
     forceCoversAnnotation="false"
@@ -22,5 +22,3 @@
        <!-- <ini name="output_buffering" value="512" /> -->
     </php>
 </phpunit>
-
-

@@ -4,9 +4,9 @@ include APP_PATH.'/Lib/functions.php';
 
 $autoloadCallbacks = spl_autoload_functions();
 if (!$autoloadCallbacks) {
-	$toRegister = true;
+    $toRegister = true;
 } else {
-	$toRegister = !in_array('_autoload', $autoloadCallbacks);
+    $toRegister = !in_array('_autoload', $autoloadCallbacks);
 }
 
 if ($toRegister) {
