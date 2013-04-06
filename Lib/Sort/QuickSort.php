@@ -13,55 +13,8 @@
  * @author     : Alexandru Dan <dan_lex@yahoo.com>
  * @version    : $1$
  */
-class Sort_QuickSort
+class Sort_QuickSort extends Sort_SortAbstract
 {
-    private static $_instance = NULL;
-    private $_debug = false;
-
-    private function __construct()
-    {
-    }
-
-    /**
-    * Quick Sort singleton
-    * @return Sort_QuickSort
-    */
-    public static function getInstance()
-    {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new Sort_QuickSort();
-        }
-
-        return self::$_instance;
-    }
-
-    /*
-    * Set debug mode
-    * @param boolean $debug
-    * @return Sort_QuickSort
-    */
-    public function setDebug($debug = true)
-    {
-        $this->_debug = $debug;
-
-        return $this;
-    }
-
-    /*
-    * Print debug variable
-    * @param mixed $var
-    */
-    private function debug($var)
-    {
-        if ($this->_debug) {
-            if (is_array($var)) {
-                print_r($var);
-            } else {
-                echo($var);
-            }
-            echo (PHP_EOL);
-        }
-    }
 
     /*
     * Public sort method
@@ -71,6 +24,7 @@ class Sort_QuickSort
     * 3. repeat for the numbers before the pivot and after te pivot
     * 4. concatenate left and right sub arrays
     * @param Array $a
+    * @return Array
     */
     public function sort(Array $a)
     {
@@ -84,6 +38,7 @@ class Sort_QuickSort
     * @param Array $a
     * @param integer $start
     * @param integer $end
+    * @return SortQuickSort
     */
     private function quickSortRec(Array &$a, $start, $end)
     {
@@ -104,8 +59,10 @@ class Sort_QuickSort
     * Place before the pivot all numbers < pivot value and
     * 
     * @param Array $a
+    * @param integer $pivot
     * @param integer $start
     * @param integer $end
+    * @return Sort_QuickSort
     */
     private function reposition(Array &$a, &$pivot, $start, $end)
     {
@@ -125,23 +82,5 @@ class Sort_QuickSort
         $pivot = $store;
 
         return $this;
-    }
-
-    /*
-    * Exchange values between 2 parameters
-    *
-    * @param mixed value $a
-    * @param mixed $b
-    */
-    private function swap (&$a, &$b)
-    {
-        if ($a === $b){
-            return true; 
-        }
-        $tmp = $a;
-        $a = $b;
-        $b = $tmp;
-
-        return true;
     }
 }
