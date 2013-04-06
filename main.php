@@ -3,30 +3,18 @@ error_reporting (E_ALL);
 include 'Config/load.php';
 
 //Sort example:
-$array = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
+$array = array(4, 2, 3, 9, 5, 8, 7, 1, 6, 1, 3);
 echo ("\nBefore sort:\n");
 print_r($array);
-$sortInstance = Sort_BinaryTree::getInstance();
+$sortInstance = Sort_QuickSort2Pivot::getInstance();
+$sortInstance->setDebug();
 $array = $sortInstance->sort($array);
 echo ("\nAfter sort:\n");
 print_r($array);
 
 die();
-
-//Sort example:
-$array = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
-echo ("\nBefore sort:\n");
-print_r($array);
-$sortInstance = Sort_BinaryTree::getInstance();
-$array = $sortInstance->sort($array);
-echo ("\nAfter sort:\n");
-print_r($array);
-
-die();
-
 //Expression example:
 $evaluator = Expression_Evaluator::getInstance();
-
 $str = '(10 + 20) + (1 + 3 * 2 / (1+1))';
 $strPostfix = $evaluator->getConvertor()->strInfixToStrPostfix($str);
 echo ("\n".$str."\n");
