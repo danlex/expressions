@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="test-bootstrap.php"
+    strict="true"
+    processIsolation="true"
+    backupGlobals="true"
+    backupStaticAttributes="false"
+    syntaxCheck="false"
+    cacheTokens="true"
+    forceCoversAnnotation="false"
+    mapTestClassNameToCoveredClassName="false"
+    convertErrorsToExceptions="false"
+    convertNoticesToExceptions="false"
+    convertWarningsToExceptions="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    colors="true"
+    verbose="true">
+    <php>
+       <!-- <ini name="memory_limit" value="512M" /> -->
+       <!-- <ini name="output_buffering" value="512" /> -->
+    </php>
+    <testsuites>
+        <testsuite name="Sort">
+            <directory>Unit/Lib/Sort</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
