@@ -29,6 +29,7 @@ class Sort_QuickSort extends Sort_SortAbstract
     public function sort(Array $a)
     {
         $this->quickSortRec($a, 0, count($a) - 1);
+
         return $a;
     }
 
@@ -57,7 +58,7 @@ class Sort_QuickSort extends Sort_SortAbstract
     /*
     * Reposition elements of the array
     * Place before the pivot all numbers < pivot value and
-    * 
+    *
     * @param Array $a
     * @param integer $pivot
     * @param integer $start
@@ -71,7 +72,7 @@ class Sort_QuickSort extends Sort_SortAbstract
         }
         $pivotValue = $a[$pivot];
         $this->swap ($a[$pivot], $a[$end]);
-        $store = $start; 
+        $store = $start;
         for ($i = $start; $i <= $end; $i ++) {
             if ($pivotValue > $a[$i] && $store <= $pivot) {
                 $this->swap ($a[$i], $a[$store]);

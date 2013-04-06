@@ -6,7 +6,7 @@ include 'Config/load.php';
 $array = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
 echo ("\nBefore sort:\n");
 print_r($array);
-$sortInstance = Sort_QuickSort::getInstance();
+$sortInstance = Sort_BinaryTree::getInstance();
 $array = $sortInstance->sort($array);
 echo ("\nAfter sort:\n");
 print_r($array);

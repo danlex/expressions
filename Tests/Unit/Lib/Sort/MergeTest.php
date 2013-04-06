@@ -10,7 +10,7 @@ class Sort_MergeTest extends PHPUnit_Framework_TestCase
                         ),
                         array (
                             1, 2, 3, 4
-                        )   
+                        )
                     ),
                     array(
                         array (

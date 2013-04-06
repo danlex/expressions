@@ -9,7 +9,6 @@ abstract class Sort_SortAbstract
      */
     protected static $instance;
 
-
     /**
     * Debug Mode
     *
@@ -29,7 +28,8 @@ abstract class Sort_SortAbstract
      *
      * @return Singleton
      */
-    public final static function getInstance() {
+    final public static function getInstance()
+    {
         if (null === static::$instance) {
             static::$instance = new static();
         }
@@ -75,7 +75,7 @@ abstract class Sort_SortAbstract
     */
     protected function swap (&$a, &$b)
     {
-        if ($a === $b){
+        if ($a === $b) {
             return true;
         }
         $tmp = $a;

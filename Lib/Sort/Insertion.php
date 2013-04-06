@@ -2,51 +2,42 @@
 /**
  * Insertion Sort
  *
+ * Insertion sort iterates, consuming one input element each repetition, and growing a sorted output list
+ * On a repetition, insertion sort removes one element from the input data, finds the location it belongs
+ * within the sorted list, and inserts it there. It repeats until no input elements remain.
+ *
  * $1$
  * $Alexandru Dan <dan_lex@yahoo.com>$
  * $2012-07-22$
  *
  * @category   : Math Algorithms
  * @package    : Sort
- * @subpackage :
+ * @subpackage : Insertion Sort
  * @copyright  : Copyright (C) 2012, Alexandru Dan
  * @author     : Alexandru Dan <dan_lex@yahoo.com>
  * @version    : $1$
  */
-class Sort_Insertion
+class Sort_Insertion extends Sort_SortAbstract
 {
-    private static $_instance = NULL;
-
-    private function __construct()
-    {
-    }
 
     /**
-     * Insertion Sort singleton
-     *
-     * @return Sort_Insertion
-     */
-    public static function getInstance()
+    * Insertion sort
+    *
+    * @param Array $a
+    * @return Array
+    */
+    public function sort(Array $a)
     {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new Sort_Insertion();
-        }
-
-        return self::$_instance;
-    }
-
-    public function sort($arr)
-    {
-        for ($j = 1; $j < count($arr); $j++) {
-            $tmp = $arr[$j];
+        for ($j = 1; $j < count($a); $j++) {
+            $tmp = $a[$j];
             $i = $j;
-            while (($i > 0) && ($arr[$i-1] > $tmp)) {
-                $arr[$i] = $arr[$i-1];
+            while (($i > 0) && ($a[$i-1] > $tmp)) {
+                $a[$i] = $a[$i-1];
                 $i--;
             }
-            $arr[$i] = $tmp;
+            $a[$i] = $tmp;
         }
 
-        return $arr;
+        return $a;
     }
 }
