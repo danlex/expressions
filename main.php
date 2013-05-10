@@ -2,16 +2,16 @@
 error_reporting (E_ALL);
 include 'Config/load.php';
 
-//Sort example:
-$array = array(4, 2, 3, 9, 5, 8, 7, 1, 6, 1, 3);
-echo ("\nBefore sort:\n");
-print_r($array);
-$sortInstance = Sort_QuickSort2Pivot::getInstance();
-$sortInstance->setDebug();
-$array = $sortInstance->sort($array);
-echo ("\nAfter sort:\n");
-print_r($array);
 
+$ga = new GA_HelloWorld();
+$ga->main();
+
+die();
+//Histogram sort example
+$unsortedArray = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
+$sortInstance = Sort_Histogram::getInstance();
+$sortedArray = $sortInstance->sort($unsortedArray);
+print_r($sortedArray);
 die();
 //Expression example:
 $evaluator = Expression_Evaluator::getInstance();
