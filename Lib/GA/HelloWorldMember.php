@@ -4,9 +4,9 @@ class GA_HelloWorldMember {
 	protected $fitness = NULL;
 	protected $gene = NULL;
 
-	public function __constuct($gene, $fitness = NULL){
+	public function __construct($gene, $fitness = NULL){
 		$this->setGene($gene);
-		if (!is_null($fitness){
+		if (!is_null($fitness)){
 			$this->setFitness($fitness);
 		}
 	}
@@ -24,6 +24,14 @@ class GA_HelloWorldMember {
 	}
 
 	public function getFitness(){
-		return $fitness;
+		return $this->fitness;
+	}
+
+	public function computeFitness($target){
+		$this->fitness = 0;
+		for($i = 0; $i < strlen($target); $i ++){
+			$this->fitness += pow(ord($target[$i]) - ord($this->gene[$i]), 2);
+		}
+		return $this;
 	}
 }

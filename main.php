@@ -2,7 +2,6 @@
 error_reporting (E_ALL);
 include 'Config/load.php';
 
-
 $ga = new GA_HelloWorld();
 $ga->main();
 
