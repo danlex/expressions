@@ -20,7 +20,7 @@ class Sort_QuickSort2Pivot extends Sort_SortAbstract
     * Public sort method
     * quick sort algorithm with 2 pivots:
     * 1. choose pivot1 and pivot2
-    * 2. place before the pivot1 all numbers < pivot1, 
+    * 2. place before the pivot1 all numbers < pivot1,
     * place before pivot 2 all numbers < pivot 2
     * array1 (0 ,pivot 1)
     * array2 (pivot 1, pivot 2)
@@ -50,14 +50,15 @@ class Sort_QuickSort2Pivot extends Sort_SortAbstract
         if ($end - $start < 1) {
            return $this;
         } elseif ($end - $start < 2) {
-           if ($a[$start] > $a[$end]){
+           if ($a[$start] > $a[$end]) {
                $this->swap ($a[$start], $a[$end]);
            }
+
            return $this;
         }
 
         $pivot1 = $start + floor(($end + 1 - $start) / 3);
-        $pivot2 = $pivot1 + floor(($end + 1 - $start) / 3); 
+        $pivot2 = $pivot1 + floor(($end + 1 - $start) / 3);
         $this->reposition ($a, $pivot1, $pivot2, $start, $end)
              ->quickSortRec($a, $start, $pivot1 - 1)
              ->quickSortRec($a, $pivot1 + 1, $pivot2 - 1)
@@ -95,8 +96,8 @@ class Sort_QuickSort2Pivot extends Sort_SortAbstract
                 $store ++;
                 continue;
             }
-            
-            if ($store === $pivot1){
+
+            if ($store === $pivot1) {
                 break;
             }
         }
@@ -118,13 +119,13 @@ class Sort_QuickSort2Pivot extends Sort_SortAbstract
                 continue;
             }
 
-            if ($store === $pivot2){
+            if ($store === $pivot2) {
                 break;
             }
         }
         $this->swap ($a[$store], $a[$end]);
         $pivot2 = $store;
-        
+
         return $this;
     }
 }

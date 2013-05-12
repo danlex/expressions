@@ -24,28 +24,28 @@ class Sort_Histogram extends Sort_SortAbstract
     */
     public function sort(Array $a)
     {
-		$max = $a[0];
+        $max = $a[0];
         for ($i = 1; $i < count($a); $i ++) {
-        	if($a[$i] > $max) {
-				$max = $a[$i];
-			}
-		}
+            if ($a[$i] > $max) {
+                $max = $a[$i];
+            }
+        }
 
-		$hist = array();
-		for ($i = 0; $i < $max; $i ++){
-			$hist[$i] = 0;
-		}
+        $hist = array();
+        for ($i = 0; $i < $max; $i ++) {
+            $hist[$i] = 0;
+        }
 
-		for($i = 0; $i < count($a); $i ++){
-			$hist[$a[$i]] ++;
-		}
-		
-		$j = 0;
-		for ($i = 0; $i < $max; $i++){
-			if($hist[$i] > 0){
-				$a[$j++] = $i;
-			}
-		}
+        for ($i = 0; $i < count($a); $i ++) {
+            $hist[$a[$i]] ++;
+        }
+
+        $j = 0;
+        for ($i = 0; $i < $max; $i++) {
+            if ($hist[$i] > 0) {
+                $a[$j++] = $i;
+            }
+        }
 
         return $a;
     }
