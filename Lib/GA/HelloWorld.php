@@ -17,9 +17,9 @@
 class GA_HelloWorld
 {
     protected $population = NULL;
-    protected $populationSize = 10;
-    protected $populationIncrement = 9;
-    protected $populationMaxMutate = 9;
+    protected $populationSize = 1000;
+    protected $populationIncrement = 900;
+    protected $populationMaxMutate = 900;
     protected $target = 'Hello World!';
     protected $generations = 0;
     protected $maxGenerations = 1000;

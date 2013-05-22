@@ -2,9 +2,21 @@
 error_reporting (E_ALL);
 include 'Config/load.php';
 
-$ga = new GA_HelloWorld();
+
+/*
+$gam = new GA_CartesianMember();
+$gam->setInput(array(0=>3, 1=>7))
+	->setRandomGene()
+	->computeFitness();
+print_p($gam->getFitness());
+*/
+
+$ga = new GA_Cartesian();
 $ga->main();
 
+die();
+$ga = new GA_HelloWorld();
+$ga->main();
 die();
 //Histogram sort example
 $unsortedArray = array(4, 2, 2, 1, 3, 7, 3, 9, 5);
