@@ -2,12 +2,11 @@
 error_reporting (E_ALL);
 include 'Config/load.php';
 
-
 /*
 $gam = new GA_CartesianMember();
 $gam->setInput(array(0=>3, 1=>7))
-	->setRandomGene()
-	->computeFitness();
+    ->setRandomGene()
+    ->computeFitness();
 print_p($gam->getFitness());
 */
 

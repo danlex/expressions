@@ -23,31 +23,37 @@ class GA_Cartesian
     protected $generations = 0;
     protected $maxGenerations = 10000;
 
-	public function setPopulationSize($value){
-		$this->populationSize = $value;
-		return $this;
-	}
+    public function setPopulationSize($value)
+    {
+        $this->populationSize = $value;
 
-	public function setPopulationIncrement($value){
-		$this->populationIncrement = $value;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setPopulationMaxMutate($value){
-		$this->populationMaxMutate = $value;
-		return $this;
-	}
+    public function setPopulationIncrement($value)
+    {
+        $this->populationIncrement = $value;
+
+        return $this;
+    }
+
+    public function setPopulationMaxMutate($value)
+    {
+        $this->populationMaxMutate = $value;
+
+        return $this;
+    }
 
     protected function initPopulation()
     {
         for ($i = 0; $i < $this->populationSize; $i ++) {
             $this->population[$i] = new GA_CartesianMember();
             $this->population[$i]->setRandomGene();
-			if($i == 0){
-				$this->population[$i]->setRandomInput();
-			} else {
-				$this->population[$i]->setInput($this->population[0]->getInput());
-			}
+            if ($i == 0) {
+                $this->population[$i]->setRandomInput();
+            } else {
+                $this->population[$i]->setInput($this->population[0]->getInput());
+            }
         }
         $this->generations = 0;
     }
@@ -87,12 +93,13 @@ class GA_Cartesian
     protected function termination()
     {
         $this->generations ++;
-        if ($this->generations > $this->maxGenerations || ((int)$this->population[0]->getFitness()) === 0) {
-			$input = $this->population[0]->getInput();
-			foreach($this->population[0]->getInput() as $input){
-				print_p($input);
-				$this->population[0]->computeOutput($input, true);
-			}
+        if ($this->generations > $this->maxGenerations || ((int) $this->population[0]->getFitness()) === 0) {
+            $input = $this->population[0]->getInput();
+            foreach ($this->population[0]->getInput() as $input) {
+                print_p($input);
+                $this->population[0]->computeOutput($input, true);
+            }
+
             return true;
         }
 
