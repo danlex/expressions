@@ -17,9 +17,9 @@
 class GA_Cartesian
 {
     protected $population = NULL;
-    protected $populationSize = 10;
-    protected $populationIncrement = 9;
-    protected $populationMaxMutate = 6;
+    protected $populationSize = 1000;
+    protected $populationIncrement = 900;
+    protected $populationMaxMutate = 900;
     protected $generations = 0;
     protected $maxGenerations = 10000;
 

@@ -21,14 +21,13 @@ class GA_CartesianMember
 
     protected $fitness = NULL;
     protected $gene = NULL;
-    protected $geneSize = NULL;
+    protected $geneCount = NULL;
     protected $mutateCount = 90;
 
-    protected $rowCount = 4;
-    protected $columnCount = 4;
-    protected $inputSize = 2;
+	protected $nodeCount = 16;
+    protected $inputCount = 3;
     protected $inputSamplesCount = 10;
-    protected $outputSize = 1;
+    protected $outputCount = 1;
 
     protected $operatorCount = 10;
 
@@ -39,7 +38,7 @@ class GA_CartesianMember
     public function setGene($value)
     {
         $this->gene = $value;
-        $this->geneSize = count($value);
+        $this->geneCount = count($value);
 
         return $this;
     }
@@ -49,16 +48,16 @@ class GA_CartesianMember
         return $this->gene;
     }
 
-    public function setGeneSize($value)
+    public function setGeneCount($value)
     {
-        $this->geneSize = $value;
+        $this->geneCount = $value;
 
         return $this;
     }
 
-    public function getGeneSize()
+    public function getGeneCount()
     {
-        return $this->geneSize;
+        return $this->geneCount;
     }
 
     public function getMutateCount()
@@ -90,20 +89,14 @@ class GA_CartesianMember
         return $this->output;
     }
 
-    public function getColumnCount()
-    {
-        return $this->columnCount;
+	public function getNodeCount()
+	{
+		return $this->nodeCount;
+	}
 
-    }
-
-    public function getRowCount()
+    public function getInputCount()
     {
-        return $this->rowCount;
-    }
-
-    public function getInputSize()
-    {
-        return $this->inputSize;
+        return $this->inputCount;
     }
 
     public function getInputSamplesCount()
@@ -111,9 +104,9 @@ class GA_CartesianMember
         return $this->inputSamplesCount;
     }
 
-    public function getOutputSize()
+    public function getOutputCount()
     {
-        return $this->outputSize;
+        return $this->outputCount;
     }
 
     public function getOperatorCount()
@@ -134,18 +127,15 @@ class GA_CartesianMember
     {
         $randomGene = array();
         $crtMapCount = $this->getOperatorCount();
-        $startIndex = $this->getInputSize();
-        $nodeInputCount = $this->getInputSize() + $this->getColumnCount() * $this->getRowCount();
-        for ($i = 0; $i < $this->getColumnCount(); $i ++) {
-            for ($j = 0; $j < $this->getRowCount(); $j ++) {
-                $randomIndex = $startIndex + $i*$this->getRowCount() + $j;
-                /** first input */
-                $randomGene[$randomIndex][0] = rand(0, $randomIndex - 1);
-                /** second input */
-                $randomGene[$randomIndex][1] = rand(0, $randomIndex - 1);
-                /** operator */
-                $randomGene[$randomIndex][2] = rand(0, $crtMapCount - 1);
-            }
+        $startIndex = $this->getInputCount();
+        for ($i = 0; $i < $this->getNodeCount(); $i ++) {
+        	$randomIndex = $startIndex + $i;
+            /** first input */
+            $randomGene[$randomIndex][0] = rand(0, $randomIndex - 1);
+            /** second input */
+            $randomGene[$randomIndex][1] = rand(0, $randomIndex - 1);
+            /** operator */
+            $randomGene[$randomIndex][2] = rand(0, $crtMapCount - 1);
         }
         $this->setGene($randomGene);
 
@@ -161,7 +151,8 @@ class GA_CartesianMember
     {
         $input = array();
         for ($i = 0; $i < $this->getInputSamplesCount(); $i++) {
-            $input[$i] = array(0 => rand(0, 100), 1 => rand(0, 100));
+			for ($j = 0; $j < $this->getInputCount(); $j ++)
+            $input[$i][$j] = rand(0, 100);
         }
         $this->setInput($input);
 
@@ -182,11 +173,10 @@ class GA_CartesianMember
 
     public function computeFitness($population = NULL)
     {
-        //$this->setRandomInput();
         $fitness = 0;
         foreach ($this->getInput() as $input) {
             $min = $input[0];
-            for ($i = 0; $i < $this->getInputSize(); $i ++) {
+            for ($i = 0; $i < $this->getInputCount(); $i ++) {
                 if ($min > $input[$i]) {
                     $min = $input[$i];
                 }
@@ -204,8 +194,8 @@ class GA_CartesianMember
     {
         for ($i = 0; $i < $this->getMutateCount(); $i ++) {
             $crtMapCount = $this->getOperatorCount();
-            $startIndex = $this->getInputSize();
-            $randomIndex = $startIndex + rand(0, $this->getGeneSize()-1);
+            $startIndex = $this->getInputCount();
+            $randomIndex = $startIndex + rand(0, $this->getGeneCount()-1);
             /** first input */
             $this->gene[$randomIndex][0] = rand(0, $randomIndex - 1);
             /** second input */
@@ -222,20 +212,18 @@ class GA_CartesianMember
         $geneX = $this->getGene();
         $geneY = $memberY->getGene();
         $geneZ = array();
-        $startIndex = $this->getInputSize();
-        $randomIndex = $startIndex + rand(0, $this->getGeneSize() - 1);
-        //$randomIndex = $startIndex + $this->getGeneSize() - 1;
+        $startIndex = $this->getInputCount();
+        $randomIndex = $startIndex + rand(0, $this->getGeneCount() - 1);
         for ($i = $startIndex; $i < $randomIndex; $i ++) {
             $geneZ[$i] = $geneX[$i];
         }
 
-        for ($i = $randomIndex; $i < $startIndex + $this->getGeneSize(); $i ++) {
+        for ($i = $randomIndex; $i < $startIndex + $this->getGeneCount(); $i ++) {
             $geneZ[$i] = $geneY[$i];
         }
         $memberZ = new GA_CartesianMember();
         $memberZ->setGene($geneZ);
         $memberZ->setInput($this->getInput());
-        //$memberZ->setRandomInput();
         return $memberZ;
     }
 
